@@ -17,7 +17,7 @@ body {
     flex-direction: column;
 }
 
-/* Taskbar */
+/* taskbar */
 .taskbar {
     position: fixed;
     bottom: 0;
@@ -42,7 +42,7 @@ body {
     cursor: pointer;
 }
 
-/* Icon Grid */
+/* icons */
 .icon-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -63,7 +63,7 @@ body {
     height: 50px;
 }
 
-/* Windows */
+/* window */
 .window {
     position: absolute;
     width: 300px;
