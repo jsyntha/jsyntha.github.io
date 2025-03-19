@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My OS Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="desktop">
+        <!-- Taskbar (Centered at Bottom) -->
+        <div class="taskbar">
+            <div class="start-menu">⚙️</div>
+            <div class="taskbar-icons">
+                <span class="time" id="time"></span>
+            </div>
+        </div>
+
+        <!-- Centered Icon Grid -->
+        <div class="icon-grid">
+            <div class="desktop-icon" onclick="openWindow('projects')">
+                <img src="assets/folder-icon.png" alt="Projects">
+                <p>Projects</p>
+            </div>
+            <div class="desktop-icon" onclick="openWindow('about')">
+                <img src="assets/user-icon.png" alt="About Me">
+                <p>About Me</p>
+            </div>
+            <div class="desktop-icon" onclick="openWindow('contact')">
+                <img src="assets/mail-icon.png" alt="Contact">
+                <p>Contact</p>
+            </div>
+        </div>
+
+        <!-- Windows (Hidden by Default) -->
+        <div class="window" id="projects-window">
+            <div class="window-header">
+                <span>Projects</span>
+                <button onclick="closeWindow('projects')">❌</button>
+            </div>
+            <div class="window-content">
+                <p>List of my projects...</p>
+            </div>
+        </div>
+
+        <div class="window" id="about-window">
+            <div class="window-header">
+                <span>About Me</span>
+                <button onclick="closeWindow('about')">❌</button>
+            </div>
+            <div class="window-content">
+                <p>Information about me...</p>
+            </div>
+        </div>
+
+        <div class="window" id="contact-window">
+            <div class="window-header">
+                <span>Contact</span>
+                <button onclick="closeWindow('contact')">❌</button>
+            </div>
+            <div class="window-content">
+                <p>Ways to contact me...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
