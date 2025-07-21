@@ -47,6 +47,7 @@ body {
 }
 
 /* icons */
+/*
 .icon-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -56,10 +57,12 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+    */
 
 .desktop-icon {
     text-align: center;
     cursor: pointer;
+    position: absolute;
 }
 
 .desktop-icon img {
