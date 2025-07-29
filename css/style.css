@@ -50,6 +50,13 @@ body {
     z-index: 999;
 }
 
+.taskbar-clock {
+    font-size: 13px;
+    text-align: right;
+    padding: 0 10px;
+    min-width: 120px;
+}
+
 .start-menu {
     padding: 4px 12px;
     border: 1px solid #444;
