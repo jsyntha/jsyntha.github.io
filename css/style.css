@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select: none;
 }
 
 body {
@@ -264,4 +265,9 @@ body {
     background-color: rgba(150,150,255,0.2);
     pointer-events:none;
     z-index: 999;
+}
+
+.desktop-icon.selected {
+    outline: 2px solid #88f;
+    border-radius: 4px;
 }

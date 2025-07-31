@@ -1,5 +1,16 @@
 console.log("main.js loaded");
 
+document.addEventListener('contextmenu', e=> e.preventDefault());
+
+function isOverllpaing(rect1, rect2) {
+    return !(
+    rect1.right < rect2.left ||
+    rect1.left > rect2.right ||
+    rect1.bottom < rect2.top ||
+    rect1.top > rect2.bottom
+    );
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // clock setup
@@ -97,18 +108,50 @@ document.addEventListener("DOMContentLoaded", () => {
             selectionBox.style.height = `${height}px`;
             selectionBox.style.left = `${left}px`;
             selectionBox.style.top = `${top}px`;
+
+            const icons = document.querySelectorAll('.desktop-icon');
+            const boxRect = selectionBox.getBoundingClientRect();
+
+            icons.forEach(icon => {
+                const iconRect = icon.getBoundingClientRect();
+
+                const isOverlapping =
+                    boxRect.left < iconRect.right &&
+                    boxRect.right > iconRect.left &&
+                    boxRect.top < iconRect.bottom &&
+                    boxRect.bottom > iconRect.top;
+
+                if (isOverlapping) {
+                    icon.classList.add('selected');
+                } else {
+                    icon.classList.remove('selected');
+                }
+            });
         }
 
-        function onMouseUp() {
+        function onMouseUp(e) {
+            const deltaX = Math.abs(e.pageX - startX);
+            const deltaY = Math.abs(e.pageY - startY);
+
+            const wasClick = deltaX < 5 && deltaY < 5;
+
             if (selectionBox) {
                 selectionBox.remove();
                 selectionBox = null;
             }
+
+            if (wasClick) {
+                document.querySelectorAll('.desktop-icon').forEach(icon => {
+                    icon.classList.remove('selected');
+                });
+            }
+
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
         }
 
-        document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
+
+        document.addEventListener('mousemove', onMouseMove);
     });
 });
