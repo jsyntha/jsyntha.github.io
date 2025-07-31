@@ -1,6 +1,21 @@
 console.log("main.js loaded");
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    // clock setup
+    function updateClock() {
+        const clock = document.getElementById('taskbar-clock');
+        const now = new Date();
+
+        const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const date = now.toLocaleDateString([], { day: '2-digit', month: 'short', year: '2-digit' });
+
+        clock.textContent = `${time} | ${date}`;
+    }
+
+    updateClock();
+    setInterval(updateClock, 60000);
+
     // desktop icon dragging
     document.querySelectorAll('.desktop-icon').forEach(icon => {
         icon.addEventListener('mousedown', dragMouseDown);
@@ -51,17 +66,49 @@ document.addEventListener("DOMContentLoaded", () => {
         icon.ondragstart = () => false;
     });
 
-    // clock setup
-    function updateClock() {
-        const clock = document.getElementById('taskbar-clock');
-        const now = new Date();
+    // selection box logic
+    const desktop = document.querySelector('.desktop');
+    let selectionBox = null;
+    let startX = 0;
+    let startY = 0;
 
-        const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        const date = now.toLocaleDateString([], { day: '2-digit', month: 'short', year: '2-digit' });
+    desktop.addEventListener('mousedown', (e) => {
+        if (e.target !== desktop) return;
 
-        clock.textContent = `${time} | ${date}`;
-    }
+        startX = e.pageX;
+        startY = e.pageY;
 
-    updateClock();
-    setInterval(updateClock, 60000);
+        selectionBox = document.createElement('div');
+        selectionBox.classList.add('selection-box');
+        selectionBox.style.left = `${startX}px`;
+        selectionBox.style.top = `${startY}px`;
+        desktop.appendChild(selectionBox);
+
+        function onMouseMove(e) {
+            const currentX = e.pageX;
+            const currentY = e.pageY;
+
+            const width = Math.abs(currentX - startX);
+            const height = Math.abs(currentY - startY);
+            const left = Math.min(currentX, startX);
+            const top = Math.min(currentY, startY);
+
+            selectionBox.style.width = `${width}px`;
+            selectionBox.style.height = `${height}px`;
+            selectionBox.style.left = `${left}px`;
+            selectionBox.style.top = `${top}px`;
+        }
+
+        function onMouseUp() {
+            if (selectionBox) {
+                selectionBox.remove();
+                selectionBox = null;
+            }
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    });
 });

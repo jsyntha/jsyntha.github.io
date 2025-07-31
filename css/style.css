@@ -257,3 +257,11 @@ body {
     font-size: 11px;
     color: #888;
 }
+
+.selection-box {
+    position: absolute;
+    border: 1px dashed #aaa;
+    background-color: rgba(150,150,255,0.2);
+    pointer-events:none;
+    z-index: 999;
+}
